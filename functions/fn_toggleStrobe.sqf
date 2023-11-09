@@ -1,15 +1,20 @@
+#include "..\script_component.hpp"
+
 params ["_unit", "_strobeType"];
 
-private _objects = attachedObjects _unit; 
-
-{
-	if (typeOf _x == "tfe_strobe_steady" || typeOf _x == "tfe_strobe_pulse") then
-	{
-		deleteVehicle _x;
+switch (_strobeType) do {
+	case STROBE_OFF: {
+		_unit call tfe_strobe_fnc_deleteStrobe;
+		_unit setVariable [STROBE_STATUS, _strobeType, true];
 	};
-} forEach _objects;
-
-if (_strobeType == "strobeOff") exitWith {true};
-
-private _strobe = _strobeType createVehicle position _unit; 
-_strobe attachTo [_unit, [-.05, -0.2,0.2],"head", true]; 
+	case STROBE_ON_STEADY: {
+		_unit call tfe_strobe_fnc_deleteStrobe;
+		[_unit, "tfe_strobe_steady"] call tfe_strobe_fnc_createStrobe;
+		_unit setVariable [STROBE_STATUS, _strobeType, true];
+	};
+	case STROBE_ON_PULSE: {
+		_unit call tfe_strobe_fnc_deleteStrobe;
+		[_unit, "tfe_strobe_pulse"] call tfe_strobe_fnc_createStrobe;
+		_unit setVariable [STROBE_STATUS, _strobeType, true];
+	};
+};

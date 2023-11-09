@@ -1,3 +1,5 @@
+#include "..\script_component.hpp"
+
 params ["_unit"];
 private _hasStrobe = getNumber (configFile >> "CfgWeapons" >> headgear _unit >> "tfe_helmet_strobe");
 

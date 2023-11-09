@@ -14,21 +14,21 @@ class CfgVehicles
 					statement = "";
 					class tfe_ir_strobe_off
 					{
-						condition = "[_player, 'tfe_strobe_pulse'] call tfe_strobe_fnc_checkStrobe || [_player, 'tfe_strobe_steady'] call tfe_strobe_fnc_checkStrobe";
+						condition = "_player call tfe_strobe_fnc_checkStrobe != 0";
 						displayName = "Off";
-						statement = "[_player, 'strobeOff'] call tfe_strobe_fnc_toggleStrobe";
-					};
-					class tfe_ir_strobe_pulse
-					{
-						condition = "!([_player, 'tfe_strobe_pulse'] call tfe_strobe_fnc_checkStrobe)";
-						displayName = "Pulse";
-						statement = "[_player, 'tfe_strobe_pulse'] call tfe_strobe_fnc_toggleStrobe";
+						statement = "[_player, 0] call tfe_strobe_fnc_toggleStrobe";
 					};
 					class tfe_ir_strobe_steady
 					{
-						condition = "!([_player, 'tfe_strobe_steady'] call tfe_strobe_fnc_checkStrobe)";
+						condition = "_player call tfe_strobe_fnc_checkStrobe != 1";
 						displayName = "Steady";
-						statement = "[_player, 'tfe_strobe_steady'] call tfe_strobe_fnc_toggleStrobe";
+						statement = "[_player, 1] call tfe_strobe_fnc_toggleStrobe";
+					};
+					class tfe_ir_strobe_pulse
+					{
+						condition = "_player call tfe_strobe_fnc_checkStrobe != 2";
+						displayName = "Pulse";
+						statement = "[_player, 2] call tfe_strobe_fnc_toggleStrobe";
 					};
 				};
 			};
